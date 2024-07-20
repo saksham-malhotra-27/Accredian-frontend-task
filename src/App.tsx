@@ -388,7 +388,7 @@ function App() {
           <Player
             autoplay
             src="/confetti.json"
-            className="fixed bottom-0 left-1/2 transform -translate-x-1/2"
+            className="fixed z-50 bottom-0 left-1/2 transform -translate-x-1/2"
             style={{ width: "100vh", height: 300 }}
           />
         )}
