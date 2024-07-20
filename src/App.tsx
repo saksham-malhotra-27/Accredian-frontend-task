@@ -200,7 +200,6 @@ function App() {
           <img src="/logo.png" alt="Brand Logo" className="h-10" />
           <nav>
             <ul className="flex space-x-4">
-              <li><a href="#" className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white">Home</a></li>
               <li><a href="#faq" className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white">About</a></li>
               <li><a href="#ben" className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white">Benefits</a></li>
               <li>
@@ -224,7 +223,7 @@ function App() {
       </header>
 
       <main className="container mx-auto flex-grow px-4 flex flex-col justify-center relative">
-        <section className="relative top-10 sm:top-16 max-h-screen flex items-center justify-center py-8 sm:py-16 bg-blue-100 rounded-xl overflow-hidden">
+        <section className="relative top-10 sm:top-16 max-h-screen flex items-center justify-center py-8 sm:py-16 sm:px-10 md:px-0 bg-blue-100 rounded-xl overflow-hidden">
           <div className="absolute inset-0">
             { windowWidth>= 1000 ?
             positions.map((pos, index) => {
