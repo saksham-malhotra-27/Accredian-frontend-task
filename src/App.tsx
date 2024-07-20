@@ -48,6 +48,13 @@ function App() {
     }, 3000);
   }, [refer])
 
+  useEffect(()=>{
+    setShowConfetti(true)
+    setTimeout(() => {
+      setShowConfetti(false)
+    }, 3000);
+  }, [logged])
+
   const handleReferNowClick = () => {
     if(logged){
       setModalOpen(true);
