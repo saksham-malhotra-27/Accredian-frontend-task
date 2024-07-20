@@ -274,7 +274,7 @@ function App() {
           </div>
         </section>
 
-        <section className="py-16 relative top-10">
+        <section id='ben' className="py-16 relative top-10">
           <h2 className="text-4xl font-semibold text-center mb-8">What Are The <span className="text-blue-500">Referral Benefits?</span></h2>
           
           <div className="md:hidden mb-4">
@@ -378,7 +378,7 @@ function App() {
           </div>
         </section>
 
-        <section className='py-16 relative top-10'>
+        <section id='faq' className='py-16 relative top-10'>
           <FAQSection/>
         </section>
         
