@@ -33,6 +33,14 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(()=>{
+    const tok = localStorage.getItem('token');
+    if(tok){
+      setToken(tok);
+      setLogged(true);
+    }
+  }, [])
+
   const handleReferNowClick = () => {
     if(logged){
       setModalOpen(true);
