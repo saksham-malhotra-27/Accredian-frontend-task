@@ -175,12 +175,13 @@ function App() {
         localStorage.setItem('token', res.data.token);
         setLogged(true)
         handleCloseModal();
-      //  console.log(res.data)
       }
     } catch (error) {
-
-     
+      if(isAxiosError(error) && error.response?.status === 401){
+        setError('Invalid Password or email');
+      } else {
       setError('An error occurred. Please try again.');
+      }
     } finally {
       setLoading(false)
     }
