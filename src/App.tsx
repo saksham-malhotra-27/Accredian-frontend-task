@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import './App.css';
 import { categories, programs } from './data';
-import FAQSection from './Faq';
+import FAQSection from './components/Faq';
 import axios, { AxiosError } from 'axios';
-import Referal from './Referal';
-import Hero from './Hero';
-import Nav from './Nav';
+import Referal from './components/Referal';
+import Hero from './components/Hero';
+import Nav from './components/Nav';
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -76,6 +76,7 @@ function App() {
   type Category = typeof categories[number];
 
   const handleCloseModal = () => {
+    setError('')
     setModalOpen(false);
   };
 
@@ -126,13 +127,17 @@ function App() {
       else {
         handleCloseModal();
         setReferred(true);
-        
+        setError('')
        
       }
     } catch (error) {
       if(isAxiosError(error) && error.response?.status === 403){
         setError('You can only send a referral for a person once.');
-      } else {
+      } 
+      else if(isAxiosError(error) && error.response?.status === 406){
+        setError('You can only send referral for others');
+      }
+      else {
       setError('An error occurred. Please try again.');
       }
     }
@@ -367,7 +372,7 @@ function App() {
                 </button>
                 <button 
                   className="text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                  onClick={() => setLoginModalOpen(false)} 
+                  onClick={() =>{ setError(''); setLoginModalOpen(false)}} 
                   type="button"
                 >
                   Cancel
