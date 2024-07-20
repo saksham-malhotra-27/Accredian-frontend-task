@@ -7,6 +7,7 @@ import axios, { AxiosError } from 'axios';
 import Referal from './components/Referal';
 import Hero from './components/Hero';
 import Nav from './components/Nav';
+import LoadingOverlay from './components/Loading';
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -26,7 +27,7 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [token, setToken] = useState("");
   const [loginmodalopen, setLoginModalOpen] = useState(false)
- 
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -112,6 +113,7 @@ function App() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/refer`, formData,
       {
         headers:{
@@ -140,6 +142,8 @@ function App() {
       else {
       setError('An error occurred. Please try again.');
       }
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -154,6 +158,7 @@ function App() {
   const login = async (e: React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     try {
+      setLoading(true)
       const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/login`, loginData,
       {
         headers:{
@@ -173,8 +178,13 @@ function App() {
       //  console.log(res.data)
       }
     } catch (error) {
+
+     
       setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false)
     }
+
   }
 
   return (
@@ -193,6 +203,7 @@ function App() {
       <Nav logged={logged} logout={logout} setLoginModalOpen={setLoginModalOpen}/>
 
       <main className="container mx-auto flex-grow px-4 flex flex-col justify-center relative">
+        <LoadingOverlay loading={loading}/>
         <section className="relative top-10 sm:top-16 max-h-screen flex items-center justify-center py-8 sm:py-16 sm:px-10 md:px-0 bg-blue-100 rounded-xl overflow-hidden">
          <Hero windowWidth={windowWidth} refer={refer} handleReferNowClick={handleReferNowClick}/>
         </section>
