@@ -1,0 +1,5 @@
+<!-- Save this content as dollars.svg in your public folder -->
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="32" fill="green" />
+  <text x="32" y="20" font-size="16" text-anchor="middle" fill="white">$</text>
+</svg>
