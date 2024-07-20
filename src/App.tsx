@@ -41,6 +41,13 @@ function App() {
     }
   }, [])
 
+  useEffect(()=>{
+    setShowConfetti(true)
+    setTimeout(() => {
+      setShowConfetti(false)
+    }, 3000);
+  }, [refer])
+
   const handleReferNowClick = () => {
     if(logged){
       setModalOpen(true);
@@ -115,7 +122,7 @@ function App() {
       }
       );
       if (res.status !== 201) {
-          console.log(res.data.error)
+         // console.log(res.data.error)
           setError(res.data.error);
        
       }
@@ -161,7 +168,7 @@ function App() {
         localStorage.setItem('token', res.data.token);
         setLogged(true)
         handleCloseModal();
-        console.log(res.data)
+      //  console.log(res.data)
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
