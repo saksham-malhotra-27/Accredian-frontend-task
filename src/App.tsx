@@ -4,6 +4,9 @@ import './App.css';
 import { categories, programs } from './data';
 import FAQSection from './Faq';
 import axios, { AxiosError } from 'axios';
+import Referal from './Referal';
+import Hero from './Hero';
+import Nav from './Nav';
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -84,19 +87,6 @@ function App() {
     }, 3000); 
   };
 
-  const positions =  
-  [{x: 19.927709656339687, y: 39.97692758644489},
-  {x: 29.601894987129228, y: 20.665273403585527},
-  {x: 56.31260622066412, y: 36.0764299140157},
-  {x: 43.743695963503335, y: 0.56558582561268},
-  {x: 80.08410005978136, y: 60.585603181938794},
-  {x: 64.78740420473261, y: 12.907424977236538},
-  {x: 24.410582625459988, y: 49.550547693900484},
-  {x: 58.20284665364059, y: 81.43039159892274},
-  {x: 90.22474504423585, y: 17.021426123890727},
-  {x: 6.0900388276248, y: 28.556282591337357},
-  {x: 4.938997748506813, y: 45.97125046883199},
-  {x: 73.43194889959419, y: 18.50918803271564}]
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -195,83 +185,11 @@ function App() {
           </button>
         </div>
       )}      
-      <header className="py-4 shadow-md">
-        <div className="container mx-auto flex items-center justify-between px-4">
-          <img src="/logo.png" alt="Brand Logo" className="h-10" />
-          <nav>
-            <ul className="flex space-x-4">
-              <li><a href="#faq" className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white">About</a></li>
-              <li><a href="#ben" className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white">Benefits</a></li>
-              <li>
-               {!logged ? <button 
-                  className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white" 
-                  onClick={() => setLoginModalOpen(true)}
-                >
-                  SignIn/SignUp
-                </button> :
-                <button 
-                className="hover:bg-blue-500 hover:animate-pulse px-2 rounded-full hover:text-white" 
-                onClick={logout}
-              >
-                Logout
-              </button>
-                }
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Nav logged={logged} logout={logout} setLoginModalOpen={setLoginModalOpen}/>
 
       <main className="container mx-auto flex-grow px-4 flex flex-col justify-center relative">
         <section className="relative top-10 sm:top-16 max-h-screen flex items-center justify-center py-8 sm:py-16 sm:px-10 md:px-0 bg-blue-100 rounded-xl overflow-hidden">
-          <div className="absolute inset-0">
-            { windowWidth>= 1000 ?
-            positions.map((pos, index) => {
-              return (
-                <>
-                  <img
-                    src="/dollars.png"
-                    alt="Dollar"
-                    className=" hidden sm:block absolute w-16 h-16 sm:w-24 sm:h-24  animate-pulse"
-                    style={{ top: `${pos.y}%`, left: `${pos.x}%` }}
-                    key={index}
-                  />
-                </>
-              )
-            })
-            :
-            positions.slice(0,6).map((pos, index) => {
-              return (
-                <>
-                  <img
-                    src="/dollars.png"
-                    alt="Dollar"
-                    className="absolute hidden sm:block w-16 h-16 sm:w-24 sm:h-24  animate-pulse"
-                    style={{ top: `${pos.y}%`, left: `${pos.x}%` }}
-                    key={index}
-                  />
-                </>
-              )
-            })}
-          </div>
-          <div className="relative z-20 flex flex-col items-center text-center sm:flex-row sm:text-left sm:justify-between">
-            <div className="w-full sm:w-1/2">
-              <h1 className="text-4xl sm:text-6xl font-bold">Let's Earn & Learn</h1>
-              <p className="mt-4 text-lg sm:text-xl">Refer a course and earn rewards!</p>
-              <button 
-                className="mt-6 px-8 py-4 bg-blue-500 sm:animate-pulse text-white text-lg rounded shadow hover:bg-blue-700"
-                onClick={handleReferNowClick} disabled={refer}
-              >
-               {!refer? "Refer Now":"Referred"}
-              </button>
-            </div>
-          </div>
-          <div className="z-10 hidden sm:block w-1/2">
-            <img src="/boygirlmain.png" alt="Refer & Earn" className="h-full w-full object-cover" />
-          </div>
-          <div className="z-10 sm:hidden absolute inset-0 flex items-center justify-center opacity-40">
-            <img src="/boygirlmain.png" alt="Refer & Earn" className="h-full w-full object-cover" />
-          </div>
+         <Hero windowWidth={windowWidth} refer={refer} handleReferNowClick={handleReferNowClick}/>
         </section>
 
         <section id='ben' className="py-16 relative top-10">
@@ -333,49 +251,7 @@ function App() {
         </section>
 
         <section className="py-16 relative top-10 bg-gray-50">
-          <h2 className="text-4xl font-semibold text-center mb-8">What is a Referral?</h2>
-          <p className="mt-4 text-lg text-center max-w-2xl mx-auto">
-            A referral is when you invite someone to join our platform and they sign up using your unique referral link.
-            You can earn rewards for every successful referral.
-          </p>
-          <div className="mt-12 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-16">
-            <div className="relative flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-              <Player
-                autoplay
-                loop
-                src="/user.json"
-                className="w-32 h-32 mb-4"
-              />
-              <h3 className="text-xl font-semibold mb-2">Submit Referrals</h3>
-              <p className="text-sm text-gray-600 text-center">
-                Submit referrals easily via our website’s referral section.
-              </p>
-            </div>
-            <div className="relative flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-              <Player
-                autoplay
-                loop
-                src="/rewards.json"
-                className="w-32 h-32 mb-4"
-              />
-              <h3 className="text-xl font-semibold mb-2">Earn Rewards</h3>
-              <p className="text-sm text-gray-600 text-center">
-                Earn rewards once your referral joins an Accredian program.
-              </p>
-            </div>
-            <div className="relative flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105">
-              <Player
-                autoplay
-                loop
-                src="/bonuses.json"
-                className="w-32 h-32 mb-4"
-              />
-              <h3 className="text-xl font-semibold mb-2">Receive Bonuses</h3>
-              <p className="text-sm text-gray-600 text-center">
-                Both parties receive a bonus 30 days after program enrollment.
-              </p>
-            </div>
-          </div>
+         <Referal/>
         </section>
 
         <section id='faq' className='py-16 relative top-10'>
@@ -410,7 +286,7 @@ function App() {
               
               
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="refereeEmail">Friend's Email</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2"  htmlFor="refereeEmail">Friend's Email</label>
                 <input 
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                   id="refereeEmail" 
@@ -470,6 +346,7 @@ function App() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                   id="password" 
                   type="password" 
+                  minLength={8}
                   placeholder="Your password" 
                   value={loginData.password}
                   onChange={handleLoginInputChange}
